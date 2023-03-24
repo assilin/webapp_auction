@@ -1,0 +1,74 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{% block title %}LEGO Auctions{% endblock %}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+        <link href="{% static 'auctions/styles.css' %}" rel="stylesheet">
+        <link rel="icon" type="image/x-icon" href="/static/auctions/favicon.png">
+    </head>
+    <body>
+        <nav class="navbar fixed-top navbar-expand-xl bg-body-tertiary">
+            <div class="container-fluid" data-bs-theme="dark">
+                <div class="titleLogo">
+                    <h2>LEGO Auctions</h2>
+                </div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <img class="menuIcon" src="/static/auctions/lego_menu_0.jpg"></img>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="btn btn-primary buttonMenu" type="button" href="{% url 'index' %}">Active Listings</a>
+                        </li>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="btn btn-primary buttonMenu" type="button" href="{% url 'new_listing'%}">New Listing</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-primary position-relative buttonMenu" type="button" href="{% url 'watchlist'%}">
+                                My Watchlist
+                                <div class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    {{ user.watchlist_users.count }}
+                                </div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-primary buttonMenu" type="button" href="{% url 'logout' %}">Log Out</a>
+                        </li>
+
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="btn btn-primary buttonMenu" type="button" href="{% url 'login' %}">Log In</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-primary buttonMenu" type="button" href="{% url 'register' %}">Register</a>
+                        </li>
+
+                        {% endif %}
+                    </ul>
+                    <div class="titleSign">
+                        {% if user.is_authenticated %}
+                        <h4>signed in as <strong>{{ user.username }}</strong></h4>
+                        {% else %}
+                        <h4>Not signed in.</h4>
+                        {% endif %}
+                    </div>
+                </div>
+            </nav>
+
+    </br>
+    </br>
+    </br>
+
+
+
+    {% block body %}
+        {% endblock %}
+    </body>
+    {% block script %}
+    {% endblock %}
+</html>

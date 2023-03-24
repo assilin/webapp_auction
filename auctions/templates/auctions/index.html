@@ -1,0 +1,97 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+    <div class="container-md">
+        <h2>Active Listings</h2>
+        <div class="row justify-content-start">
+            <div class="col-8">
+                <form action="{% url 'filter_category' %}" method="POST">
+                {% csrf_token %}
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="itemTheme">Choose category</label>
+                        <input class="form-control" list="itemOptions" id="itemTheme" name="itemTheme" placeholder="Type to search...">
+                        <datalist id="itemOptions">
+                            {% for theme in themes %}
+                                <option value="{{ theme.theme_name }}">
+                            {% endfor %}
+                        </datalist>
+                        <button class="btn btn-outline-primary" type="submit"> Filter</button>
+                    </div>
+                </form>
+            </div>
+            {% if user.is_authenticated %}
+            <div class="col-4">
+                <div class="row justify-content-start">
+
+                    <form action="{% url 'my_listings' %}" method="POST">
+                        {% csrf_token %}
+                        <button class="btn btn-primary buttonMenu" type="submit"><strong>My Listings</strong></button>
+                    </form>
+                    <form action="{% url 'index' %}" method="POST">
+                        {% csrf_token %}
+                        <button class="btn btn-secondary buttonMenu" type="submit"><strong>All Listings</strong></button>
+                    </form>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    </br>
+    <div class="container-md">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for listing in listings %}
+                <div class="col" style="margin-bottom: 10px;">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            <h4 class="card-title">{{ listing.title.item_name }}</h4>
+                            {% if not listing.active_listing %}
+                                <div class="messageError">
+                                    <p><strong>Listing Closed</strong></p>
+                                </div>
+                            {% endif %}
+                        </div>
+                        {% if listing.url_image == "" %}
+                        <a href="{% url 'listing' id=listing.id %}">
+                            <img src="{{ listing.title.item_url_image }}" class="imageSmall card-img-top">
+                        </a>
+                        {% else %}
+                        <a href="{% url 'listing' id=listing.id %}">
+                            <img src="{{ listing.url_image }}" class="imageSmall card-img-top" alt="There are no any image here">
+                        </a>
+                            {% endif %}
+                        <div class="card-body">
+
+                            <h6>Seller's price: <span style="color: red">&#36;{{ listing.price }}</span></h6>
+                            <ul>
+                                <li>id: {{ listing.title.item_id }}</li>
+                                <li>year: {{ listing.title.item_year }}</li>
+                            </ul>
+                            <h6>Seller:</h6>
+                            <p>{{ listing.seller }}</p>
+                            <h6>Description:</h6>
+                            <p class="card-text">{{ listing.description|truncatechars:100 }}</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{% url 'listing' id=listing.id %}" class="btn btn-primary"><strong>Learn more</strong></a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="messageError">
+                    <p><strong>no items</strong></p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+
+    <script>
+
+    </script>
+
+{% endblock %}

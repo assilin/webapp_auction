@@ -1,0 +1,60 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+    <div class="container-md">
+        <h2>My Watchlist</h2>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for listing in listings %}
+                <div class="col" style="margin-bottom: 10px;">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            <h4 class="card-title">{{ listing.title.item_name }}</h4>
+                            {% if not listing.active_listing %}
+                            <div class="messageError">
+                                <p><strong>Listing Closed</strong></p>
+                            </div>
+                        {% endif %}
+                        </div>
+                        {% if listing.url_image == "" %}
+                        <a href="{% url 'listing' id=listing.id %}">
+                            <img src="{{ listing.title.item_url_image }}" class="imageSmall card-img-top">
+                        </a>
+                        {% else %}
+                        <a href="{% url 'listing' id=listing.id %}">
+                            <img src="{{ listing.url_image }}" class="imageSmall card-img-top" alt="There are no any image here">
+                        </a>
+                        {% endif %}
+                        <div class="card-body">
+                            <h6>Current price: <span style="color: red">&#36;{{ listing.price }}</span></h6>
+                            <ul>
+                                <li>id: {{ listing.title.item_id }}</li>
+                                <li>year: {{ listing.title.item_year }}</li>
+                            </ul>
+                            <h6>Seller:</h6>
+                            <p>{{ listing.seller }}</p>
+                            <h6>Description:</h6>
+                            <p class="card-text">{{ listing.description|truncatechars:100 }}</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{% url 'listing' id=listing.id %}" class="btn btn-primary"><strong>Learn more</strong></a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="messageError">
+                    <p><strong>no items</strong></p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+
+    <script>
+
+    </script>
+
+{% endblock %}

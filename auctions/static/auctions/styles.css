@@ -1,0 +1,87 @@
+body {
+    padding: 10px;
+    background-color: #fff579;
+    background-image: url("/static/auctions/lego_back.jpg");
+    background-attachment: fixed;
+    background-position: top left;
+    background-size: 1920px auto;
+}
+
+
+.imageBig {
+    margin: 15px 0 15px 40px;
+    width: 400px;
+}
+
+.container-md {
+    background-color: #fff579;
+    opacity: 0.97;
+    max-width: 1200px;
+    border: solid 1px;
+    border-radius: 7px;
+    border-color: #afa7fa;
+    padding: 10px 10px 10px 10px;
+    margin: 5px 0 5px 0;
+}
+
+.messageError {
+    color: red;
+    text-align: center;
+}
+
+.imageSmall {
+    margin: 5px 5px 5px 5px;
+    max-height: 200px;
+    object-fit: scale-down;
+}
+
+.listingCard {
+    font-size: 1.25em;
+    opacity: 1;
+}
+
+.buttonMenu {
+    margin: 2px 5px 2px 5px;
+}
+
+.navbar {
+    background-color: #fecd03;
+    color: white;
+    text-shadow: 2px 2px 5px #dd1a21;
+}
+
+.titleLogo {
+    margin: 0 15px 0 0;
+}
+
+.titleSign {
+    text-align: right;
+    padding: 0 15px 0 25px;
+}
+
+.menuIcon {
+    height: 30px;
+    width: auto;
+}
+
+.col-6 {
+    margin: 8px 0 0 0;
+}
+
+.commentRow {
+    display: flex;
+    justify-content: space-between;
+}
+
+.commentDate {
+    font-size: 0.75em;
+    margin: 0 15px 0 15px;
+    text-align: right;
+}
+
+.commentUser {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin: 0 15px 0 15px;
+    text-align: left;
+}
